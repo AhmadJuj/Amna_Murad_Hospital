@@ -55,7 +55,7 @@ export function SectionHeading({
 
 export function HospitalHeader() {
   return (
-    <>
+    <div className="sticky top-0 z-50">
       <div className="bg-[#062a61] text-white">
         <div className="mx-auto flex min-h-9 max-w-[1180px] items-center justify-center gap-4 px-5 py-1.5 text-[9px] min-[420px]:justify-between min-[420px]:text-[10px] md:px-8">
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 min-[420px]:justify-start">
@@ -130,7 +130,7 @@ export function HospitalHeader() {
           <MobileNav />
         </div>
       </header>
-    </>
+    </div>
   );
 }
 

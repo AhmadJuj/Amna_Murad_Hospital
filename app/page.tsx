@@ -25,7 +25,7 @@ const executivePortrait =
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden bg-white text-[#0b1730]">
+    <main className="min-h-screen bg-white text-[#0b1730]">
       <HospitalHeader />
 
       <section className="bg-[#f7faff]">
