@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  Activity,
   Ambulance,
   ArrowUpRight,
   Bone,
@@ -19,10 +20,12 @@ import {
   Clock3,
   HeartPulse,
   MapPin,
-  Microscope,
   Phone,
   Quote,
+  Scissors,
   Smile,
+  Sparkles,
+  Stethoscope,
   TestTubeDiagonal,
 } from "lucide-react";
 import { MobileNav } from "./mobile-nav";
@@ -199,40 +202,81 @@ export function ActionStrip() {
 
 const departments = [
   {
+    slug: "dermatology",
+    icon: Sparkles,
+    title: "Dermatology",
+    description:
+      "Specialist diagnosis and treatment for skin, hair, nail, and cosmetic concerns.",
+    color: "text-[#8a286f]",
+    bg: "bg-[#f9eaf5]",
+    accent: "bg-[#b2378d]",
+    services: ["Clinical dermatology", "Skin and hair care"],
+  },
+  {
+    slug: "gynecology",
+    icon: HeartPulse,
+    title: "Gynecology",
+    description:
+      "Compassionate women’s healthcare, pregnancy care, and reproductive medicine.",
+    color: "text-[#b12f62]",
+    bg: "bg-[#fcecf3]",
+    accent: "bg-[#d4477d]",
+    services: ["Women’s health", "Pregnancy and fertility"],
+  },
+  {
+    slug: "medical-specialist",
+    icon: Stethoscope,
+    title: "Medical Specialist",
+    description:
+      "Comprehensive assessment and management of adult medical conditions.",
+    color: "text-[#175c87]",
+    bg: "bg-[#e9f4fa]",
+    accent: "bg-[#2479a8]",
+    services: ["Medical consultation", "Chronic disease care"],
+  },
+  {
+    slug: "general-surgery",
+    icon: Scissors,
+    title: "General Surgery",
+    description:
+      "Experienced surgical care for general, breast, and emergency conditions.",
+    color: "text-[#875126]",
+    bg: "bg-[#faf1e8]",
+    accent: "bg-[#ae6b32]",
+    services: ["General procedures", "Breast and emergency surgery"],
+  },
+  {
+    slug: "physiotherapy",
+    icon: Activity,
+    title: "Physiotherapy",
+    description:
+      "Evidence-based rehabilitation for mobility, pain, and sports-related injuries.",
+    color: "text-[#176c63]",
+    bg: "bg-[#e9f6f3]",
+    accent: "bg-[#238c80]",
+    services: ["Physical rehabilitation", "Pain management"],
+  },
+  {
+    slug: "chiropractor-physiotherapist",
+    icon: Bone,
+    title: "Chiropractor / Physiotherapist",
+    description:
+      "Focused treatment for spinal disorders, posture, joints, and musculoskeletal pain.",
+    color: "text-[#314f88]",
+    bg: "bg-[#edf1fa]",
+    accent: "bg-[#4568a6]",
+    services: ["Spinal care", "Orthopedic rehabilitation"],
+  },
+  {
+    slug: "dental-care",
     icon: Smile,
     title: "Dental Care",
-    description: "World-class dental surgery and aesthetic treatments for all ages.",
+    description:
+      "Preventive, restorative, pediatric, and aesthetic dental care for every age.",
     color: "text-[#0b4b8a]",
     bg: "bg-[#e9f2fb]",
     accent: "bg-[#0b4b8a]",
-    services: ["Cosmetic dentistry", "Oral surgery"],
-  },
-  {
-    icon: Microscope,
-    title: "Internal Medicine",
-    description: "In-depth diagnosis and treatment of complex adult illnesses.",
-    color: "text-[#315f8c]",
-    bg: "bg-[#edf3f8]",
-    accent: "bg-[#315f8c]",
-    services: ["Preventive medicine", "Chronic care"],
-  },
-  {
-    icon: HeartPulse,
-    title: "Cardiology",
-    description: "Heart care including diagnostics, surgery, and rehabilitation.",
-    color: "text-[#c92838]",
-    bg: "bg-[#fcecef]",
-    accent: "bg-[#c92838]",
-    services: ["Cardiac diagnostics", "Heart rehabilitation"],
-  },
-  {
-    icon: Bone,
-    title: "Orthopedics",
-    description: "Specialized care for bones, joints, and musculoskeletal issues.",
-    color: "text-[#1f4f7d]",
-    bg: "bg-[#eaf1f7]",
-    accent: "bg-[#1f4f7d]",
-    services: ["Joint replacement", "Sports injuries"],
+    services: ["Preventive dentistry", "Adult and pediatric care"],
   },
 ];
 
@@ -242,6 +286,7 @@ export function Departments() {
       {departments.map(
         (
           {
+            slug,
             icon: Icon,
             title,
             description,
@@ -253,13 +298,16 @@ export function Departments() {
           index,
         ) => (
         <Reveal key={title} delay={index * 100} className="h-full">
-          <Card className="group relative h-full min-h-[360px] overflow-hidden rounded-[18px] transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-[#b9c9dc]">
+          <Card
+            id={slug}
+            className="group relative h-full min-h-[360px] scroll-mt-28 overflow-hidden rounded-[18px] transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-[#b9c9dc]"
+          >
             <div className={`relative h-28 overflow-hidden ${bg}`}>
               <span className={`absolute inset-x-0 top-0 h-1 ${accent}`} />
               <span className="absolute -right-10 -top-12 size-32 rounded-full border border-current opacity-[0.08]" />
               <span className="absolute -bottom-16 left-8 size-28 rounded-full border border-current opacity-[0.06]" />
               <span className={`absolute left-5 top-5 text-[9px] font-extrabold uppercase tracking-[0.18em] ${color}`}>
-                Department 0{index + 1}
+                Rank 0{index + 1}
               </span>
               <div
                 className={`absolute bottom-4 right-5 grid size-14 place-items-center rounded-full border border-white/80 bg-white shadow-sm transition-transform duration-300 group-hover:-translate-y-1 ${color}`}
@@ -577,11 +625,19 @@ export function HospitalFooter() {
         <FooterColumn
           title="Departments"
           links={[
-            { label: "Cardiology", href: "/departments" },
-            { label: "Orthopedics", href: "/departments" },
-            { label: "Internal Medicine", href: "/departments" },
-            { label: "General Surgery", href: "/departments" },
-            { label: "Dental Clinic", href: "/departments" },
+            { label: "Dermatology", href: "/departments#dermatology" },
+            { label: "Gynecology", href: "/departments#gynecology" },
+            {
+              label: "Medical Specialist",
+              href: "/departments#medical-specialist",
+            },
+            { label: "General Surgery", href: "/departments#general-surgery" },
+            { label: "Physiotherapy", href: "/departments#physiotherapy" },
+            {
+              label: "Chiropractor / Physiotherapist",
+              href: "/departments#chiropractor-physiotherapist",
+            },
+            { label: "Dental Care", href: "/departments#dental-care" },
           ]}
         />
         <FooterColumn
