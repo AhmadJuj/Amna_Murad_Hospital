@@ -1,19 +1,23 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { whatsappHref } from "@/lib/contact";
 
 const links = [
-  { label: "Home", href: "#" },
-  { label: "About Us", href: "#about" },
-  { label: "Departments", href: "#departments" },
-  { label: "Consultants", href: "#consultants" },
-  { label: "Lab Reports", href: "#" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Departments", href: "/departments" },
+  { label: "Doctors", href: "/doctors" },
+  { label: "Lab Reports", href: "/lab-reports" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="relative lg:hidden">
@@ -36,17 +40,24 @@ export function MobileNav() {
       >
         <nav className="grid gap-1">
           {links.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="rounded-lg px-4 py-3 text-sm font-semibold text-[#42506a] transition hover:bg-[#edf4fc] hover:text-[#0b438c]"
+              className={`rounded-lg px-4 py-3 text-sm font-semibold transition hover:bg-[#edf4fc] hover:text-[#0b438c] ${
+                pathname === link.href ||
+                (link.href !== "/" && pathname.startsWith(`${link.href}/`))
+                  ? "bg-[#edf4fc] text-[#0b438c]"
+                  : "text-[#42506a]"
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <a
-            href="#consultants"
+            href={whatsappHref()}
+            target="_blank"
+            rel="noreferrer"
             onClick={() => setIsOpen(false)}
             className="mt-2 rounded-lg bg-[#082c69] px-4 py-3 text-center text-sm font-bold text-white"
           >

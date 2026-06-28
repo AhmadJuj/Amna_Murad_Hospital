@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   BadgeCheck,
   Check,
@@ -17,6 +18,11 @@ import {
   NewsAndTestimonials,
   SectionHeading,
 } from "./ui/home-sections";
+import {
+  hospitalPhoneDisplay,
+  hospitalPhoneHref,
+  whatsappHref,
+} from "@/lib/contact";
 
 const heroRoom =
   "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=78";
@@ -44,18 +50,18 @@ export default function Home() {
               smooth and comfortable.
             </p>
             <div className="mt-8 grid gap-3 min-[420px]:flex min-[420px]:flex-wrap">
-              <a
-                href="#departments"
+              <Link
+                href="/departments"
                 className="rounded-md bg-[#062c6f] px-6 py-3 text-sm font-bold text-white shadow-[0_9px_24px_rgba(6,44,111,0.2)] transition hover:-translate-y-0.5 hover:bg-[#0b3a88]"
               >
                 Explore Services
-              </a>
-              <a
-                href="#about"
+              </Link>
+              <Link
+                href="/about"
                 className="rounded-md border border-[#d9e0ea] bg-white px-6 py-3 text-sm font-semibold text-[#1e2b40] transition hover:border-[#0d3b78]"
               >
                 Virtual Tour
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -185,10 +191,17 @@ export default function Home() {
                 <p className="text-[10px] font-semibold uppercase text-[#8fa1be]">
                   Call us now
                 </p>
-                <p className="mt-1 font-bold">055-3734141</p>
+                <a
+                  href={hospitalPhoneHref}
+                  className="mt-1 block font-bold transition hover:text-[#72b4ff]"
+                >
+                  {hospitalPhoneDisplay}
+                </a>
               </div>
               <a
-                href="#consultants"
+                href={whatsappHref()}
+                target="_blank"
+                rel="noreferrer"
                 className="rounded-md bg-[#0b4a9f] px-6 py-3 text-sm font-bold transition hover:bg-[#1461c5]"
               >
                 Book Online Now

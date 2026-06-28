@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -25,7 +26,18 @@ import {
   TestTubeDiagonal,
 } from "lucide-react";
 import { MobileNav } from "./mobile-nav";
+import { DesktopNav } from "./desktop-nav";
 import { Reveal } from "./reveal";
+import {
+  doctorPortraits,
+  doctors as doctorDirectory,
+  type Doctor,
+} from "@/data/doctors";
+import {
+  hospitalPhoneDisplay,
+  hospitalPhoneHref,
+  whatsappHref,
+} from "@/lib/contact";
 
 type SectionHeadingProps = {
   eyebrow: string;
@@ -59,14 +71,20 @@ export function HospitalHeader() {
       <div className="bg-[#062a61] text-white">
         <div className="mx-auto flex min-h-9 max-w-[1180px] items-center justify-center gap-4 px-5 py-1.5 text-[9px] min-[420px]:justify-between min-[420px]:text-[10px] md:px-8">
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 min-[420px]:justify-start">
-            <span className="flex items-center gap-1.5">
+            <a
+              href={hospitalPhoneHref}
+              className="flex items-center gap-1.5 transition hover:text-[#b9dcff]"
+            >
               <Phone size={11} />
-              055-3734141
-            </span>
-            <span className="flex items-center gap-1.5">
+              {hospitalPhoneDisplay}
+            </a>
+            <a
+              href={hospitalPhoneHref}
+              className="flex items-center gap-1.5 transition hover:text-[#b9dcff]"
+            >
               <Ambulance size={12} />
-              Emergency: 0300-2009917
-            </span>
+              Emergency: {hospitalPhoneDisplay}
+            </a>
           </div>
           <div className="hidden items-center gap-4 sm:flex">
             <span>Gujranwala, Pakistan</span>
@@ -78,7 +96,7 @@ export function HospitalHeader() {
       </div>
       <header className="border-b border-[#e8edf4] bg-white">
         <div className="relative mx-auto flex min-h-[72px] max-w-[1180px] items-center justify-between gap-3 px-4 sm:min-h-20 sm:gap-6 sm:px-5 md:px-8">
-          <a href="#" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <Image
               src="/logo.jpeg"
               alt="Amna Murad Hospital logo"
@@ -95,34 +113,12 @@ export function HospitalHeader() {
                 HOSPITAL
               </p>
             </div>
-          </a>
-          <nav className="hidden items-center gap-7 text-[12px] font-semibold text-[#536076] lg:flex">
-            {["Home", "About Us", "Departments", "Consultants", "Lab Reports", "Contact"].map(
-              (item) => (
-                <a
-                  key={item}
-                  href={
-                    item === "Departments"
-                      ? "#departments"
-                      : item === "Consultants"
-                        ? "#consultants"
-                        : item === "About Us"
-                          ? "#about"
-                          : "#"
-                  }
-                  className={
-                    item === "Home"
-                      ? "text-[#0b438c]"
-                      : "transition hover:text-[#0b438c]"
-                  }
-                >
-                  {item}
-                </a>
-              ),
-            )}
-          </nav>
+          </Link>
+          <DesktopNav />
           <a
-            href="#consultants"
+            href={whatsappHref()}
+            target="_blank"
+            rel="noreferrer"
             className="hidden rounded-md bg-[#082c69] px-5 py-3 text-xs font-bold text-white shadow-sm sm:inline-flex"
           >
             Book Appointment
@@ -140,24 +136,28 @@ const actions = [
     title: "Find Doctors",
     description: "Book a visit with experts",
     className: "bg-[#0b1730]",
+    href: "/doctors",
   },
   {
     icon: TestTubeDiagonal,
-    title: "Lab Reports",
-    description: "Download results online",
+    title: "Diagnostic Services",
+    description: "Explore tests and reports",
     className: "bg-[#2f4059]",
+    href: "/lab-reports",
   },
   {
     icon: MapPin,
     title: "Our Locations",
     description: "Find your nearest center",
     className: "bg-[#101f39]",
+    href: "/contact",
   },
   {
     icon: Ambulance,
     title: "Emergency 24/7",
     description: "Immediate care available",
     className: "bg-[#eb164e]",
+    href: "tel:+923006409917",
   },
 ];
 
@@ -165,18 +165,31 @@ export function ActionStrip() {
   return (
     <section className="relative z-10 mx-auto -mt-1 max-w-[1180px] px-5 md:px-8">
       <div className="grid grid-cols-2 overflow-hidden rounded-xl shadow-[0_18px_44px_rgba(15,38,68,0.18)] lg:grid-cols-4">
-        {actions.map(({ icon: Icon, title, description, className }, index) => (
+        {actions.map(({ icon: Icon, title, description, className, href }, index) => (
           <Reveal key={title} delay={index * 90} className="h-full">
-            <a
-              href="#"
-              className={`${className} group flex h-full min-h-28 flex-col items-start justify-center gap-2 border-white/10 px-4 text-white transition duration-300 hover:-translate-y-1 min-[480px]:flex-row min-[480px]:items-center min-[480px]:gap-4 min-[480px]:px-6 lg:border-r`}
-            >
-              <Icon size={24} className="transition-transform duration-300 group-hover:scale-110" />
-              <div>
-                <p className="text-sm font-bold">{title}</p>
-                <p className="mt-1 text-[10px] text-white/68">{description}</p>
-              </div>
-            </a>
+            {href.startsWith("/") ? (
+              <Link
+                href={href}
+                className={`${className} group flex h-full min-h-28 flex-col items-start justify-center gap-2 border-white/10 px-4 text-white transition duration-300 hover:-translate-y-1 min-[480px]:flex-row min-[480px]:items-center min-[480px]:gap-4 min-[480px]:px-6 lg:border-r`}
+              >
+                <Icon size={24} className="transition-transform duration-300 group-hover:scale-110" />
+                <div>
+                  <p className="text-sm font-bold">{title}</p>
+                  <p className="mt-1 text-[10px] text-white/68">{description}</p>
+                </div>
+              </Link>
+            ) : (
+              <a
+                href={href}
+                className={`${className} group flex h-full min-h-28 flex-col items-start justify-center gap-2 border-white/10 px-4 text-white transition duration-300 hover:-translate-y-1 min-[480px]:flex-row min-[480px]:items-center min-[480px]:gap-4 min-[480px]:px-6 lg:border-r`}
+              >
+                <Icon size={24} className="transition-transform duration-300 group-hover:scale-110" />
+                <div>
+                  <p className="text-sm font-bold">{title}</p>
+                  <p className="mt-1 text-[10px] text-white/68">{description}</p>
+                </div>
+              </a>
+            )}
           </Reveal>
         ))}
       </div>
@@ -277,15 +290,15 @@ export function Departments() {
             </CardContent>
 
             <CardFooter className="relative pt-7">
-              <a
-                href="#"
+              <Link
+                href="/departments"
                 className="flex w-full items-center justify-between text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#173e70]"
               >
                 Explore department
                 <span className="grid size-8 place-items-center rounded-full border border-[#dce5ef] transition duration-300 group-hover:border-[#173e70] group-hover:bg-[#173e70] group-hover:text-white">
                   <ArrowUpRight size={14} />
                 </span>
-              </a>
+              </Link>
             </CardFooter>
           </Card>
         </Reveal>
@@ -295,74 +308,95 @@ export function Departments() {
   );
 }
 
-const doctors = [
-  {
-    name: "Prof. Dr. Zafarullah",
-    specialty: "General & Laparoscopic Surgery",
-    image:
-      "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=700&q=72",
-    days: "Mon - Thu",
-    time: "14:00 - 18:00",
-  },
-  {
-    name: "Prof. Dr. M R Zaki",
-    specialty: "Urology Specialist",
-    image:
-      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=700&q=72",
-    days: "Mon - Sat",
-    time: "16:00 - 19:00",
-  },
-  {
-    name: "Prof. Dr. Tariq Salahuddin",
-    specialty: "Neurosurgery Specialist",
-    image:
-      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=700&q=72",
-    days: "Tue - Fri",
-    time: "15:00 - 20:00",
-  },
-];
+const featuredDoctors = doctorDirectory.slice(0, 3);
+
+function formatVisitingDays(doctor: Doctor) {
+  const firstDay = doctor.visitingDays.at(0);
+  const lastDay = doctor.visitingDays.at(-1);
+
+  if (!firstDay || !lastDay) {
+    return "By appointment";
+  }
+
+  if (firstDay === lastDay) {
+    return firstDay.slice(0, 3);
+  }
+
+  return `${firstDay.slice(0, 3)} - ${lastDay.slice(0, 3)}`;
+}
+
+function doctorAppointmentLink(doctor: Doctor) {
+  const message = `Hello Amna Murad Hospital, I would like to book an appointment with ${doctor.name} (${doctor.department}).`;
+  return whatsappHref(message);
+}
 
 export function Consultants() {
   return (
-    <div className="mt-12 grid gap-8 md:grid-cols-3">
-      {doctors.map((doctor, index) => (
-        <Reveal key={doctor.name} delay={index * 120}>
-        <article className="group text-center">
-          <div className="image-frame relative mx-auto aspect-[1.05] w-full max-w-[290px] overflow-hidden rounded-xl bg-[#0d263c] shadow-[0_18px_40px_rgba(19,44,68,0.13)]">
-            <Image
-              src={doctor.image}
-              alt={doctor.name}
-              fill
-              loading="lazy"
-              unoptimized
-              sizes="(max-width: 768px) 290px, 30vw"
-              className="image-soft object-cover object-center"
-            />
-          </div>
-          <h3 className="mt-5 text-[15px] font-extrabold text-[#182139]">
-            {doctor.name}
-          </h3>
-          <p className="mt-1 text-xs font-semibold text-[#49749c]">
-            {doctor.specialty}
-          </p>
-          <div className="mx-auto mt-5 grid max-w-[320px] grid-cols-2 border-y border-[#e7ebf0] py-3 text-[10px] text-[#7a8798]">
-            <span className="flex items-center justify-center gap-1.5">
-              <CalendarDays size={12} /> {doctor.days}
-            </span>
-            <span className="flex items-center justify-center gap-1.5">
-              <Clock3 size={12} /> {doctor.time}
-            </span>
-          </div>
-          <a
-            href="#"
-            className="mx-auto mt-4 inline-flex w-full max-w-[320px] items-center justify-center rounded border border-[#dfe5ed] py-2.5 text-[11px] font-bold text-[#183a65] transition hover:bg-[#0b3977] hover:text-white"
-          >
-            Make Appointment
-          </a>
-        </article>
-        </Reveal>
-      ))}
-    </div>
+    <>
+      <div className="mt-12 grid gap-8 md:grid-cols-3">
+        {featuredDoctors.map((doctor, index) => (
+          <Reveal key={doctor.name} delay={index * 120}>
+            <article className="group text-center">
+              <Link
+                href={`/doctors/${doctor.id}`}
+                className="image-frame relative mx-auto block aspect-[1.05] w-full max-w-[290px] overflow-hidden rounded-xl bg-[#0d263c] shadow-[0_18px_40px_rgba(19,44,68,0.13)]"
+              >
+                <Image
+                  src={doctorPortraits[doctor.id]}
+                  alt={doctor.name}
+                  fill
+                  loading="lazy"
+                  unoptimized
+                  sizes="(max-width: 768px) 290px, 30vw"
+                  className="image-soft object-cover object-top"
+                />
+              </Link>
+              <Link
+                href={`/doctors/${doctor.id}`}
+                className="mt-5 block text-[15px] font-extrabold text-[#182139] transition hover:text-[#0b438c]"
+              >
+                {doctor.name}
+              </Link>
+              <p className="mt-1 min-h-8 text-xs font-semibold leading-4 text-[#49749c]">
+                {doctor.designation}
+              </p>
+              <div className="mx-auto mt-5 grid max-w-[320px] grid-cols-2 border-y border-[#e7ebf0] py-3 text-[10px] text-[#7a8798]">
+                <span className="flex items-center justify-center gap-1.5">
+                  <CalendarDays size={12} /> {formatVisitingDays(doctor)}
+                </span>
+                <span className="flex items-center justify-center gap-1.5">
+                  <Clock3 size={12} /> {doctor.timings}
+                </span>
+              </div>
+              <div className="mx-auto mt-4 grid w-full max-w-[320px] grid-cols-2 gap-2">
+                <Link
+                  href={`/doctors/${doctor.id}`}
+                  className="inline-flex items-center justify-center rounded border border-[#dfe5ed] py-2.5 text-[10px] font-bold text-[#183a65] transition hover:border-[#0b3977]"
+                >
+                  View Profile
+                </Link>
+                <a
+                  href={doctorAppointmentLink(doctor)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded bg-[#1fa855] py-2.5 text-[10px] font-bold text-white transition hover:bg-[#168946]"
+                >
+                  Make Appointment
+                </a>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+      <div className="mt-10 text-center">
+        <Link
+          href="/doctors"
+          className="inline-flex items-center gap-2 rounded-md border border-[#cbd9e8] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.1em] text-[#173e70] transition hover:border-[#173e70] hover:bg-[#173e70] hover:text-white"
+        >
+          View all doctors <ArrowUpRight size={15} />
+        </Link>
+      </div>
+    </>
   );
 }
 
@@ -389,7 +423,10 @@ export function EmergencyBanner() {
             Our trauma and emergency center is open 24 hours a day, 7 days a
             week, providing immediate critical care for all medical situations.
           </p>
-          <div className="mt-7 flex items-center gap-4">
+          <a
+            href={hospitalPhoneHref}
+            className="mt-7 flex items-center gap-4 rounded-xl transition hover:bg-white/5"
+          >
             <span className="grid size-12 place-items-center rounded-xl bg-[#ec2558]">
               <Phone size={22} />
             </span>
@@ -397,9 +434,9 @@ export function EmergencyBanner() {
               <p className="text-[10px] font-semibold uppercase text-white/60">
                 Emergency hotline
               </p>
-              <p className="text-xl font-extrabold">0300-2009917</p>
+              <p className="text-xl font-extrabold">{hospitalPhoneDisplay}</p>
             </div>
-          </div>
+          </a>
         </Reveal>
       </div>
     </section>
@@ -426,7 +463,10 @@ const news = [
 
 export function NewsAndTestimonials() {
   return (
-    <section className="lazy-section bg-[#f7f9fc] py-14 sm:py-20">
+    <section
+      id="news"
+      className="lazy-section scroll-mt-28 bg-[#f7f9fc] py-14 sm:py-20"
+    >
       <div className="mx-auto grid max-w-[1120px] gap-10 px-4 sm:px-5 md:px-8 lg:grid-cols-[1fr_0.86fr]">
         <Reveal direction="left">
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#235e9c]">
@@ -525,24 +565,34 @@ export function HospitalFooter() {
           </p>
           <div className="mt-5 flex gap-3">
             {["f", "◎", "in"].map((label) => (
-              <a
-                href="#"
+              <span
                 key={label}
-                aria-label="Social media"
                 className="grid size-8 place-items-center rounded-full bg-white/8 text-[11px] font-bold text-white"
               >
                 {label}
-              </a>
+              </span>
             ))}
           </div>
         </div>
         <FooterColumn
           title="Departments"
-          links={["Cardiology", "Orthopedics", "Internal Medicine", "General Surgery", "Dental Clinic"]}
+          links={[
+            { label: "Cardiology", href: "/departments" },
+            { label: "Orthopedics", href: "/departments" },
+            { label: "Internal Medicine", href: "/departments" },
+            { label: "General Surgery", href: "/departments" },
+            { label: "Dental Clinic", href: "/departments" },
+          ]}
         />
         <FooterColumn
           title="Quick Links"
-          links={["About Us", "Our Doctors", "Latest News", "Patient Portal", "Contact Support"]}
+          links={[
+            { label: "About Us", href: "/about" },
+            { label: "Our Doctors", href: "/doctors" },
+            { label: "Latest News", href: "/#news" },
+            { label: "Diagnostic Services", href: "/lab-reports" },
+            { label: "Contact Support", href: "/contact" },
+          ]}
         />
         <div className="col-span-2 sm:col-span-1">
           <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-white">
@@ -562,20 +612,23 @@ export function HospitalFooter() {
               <strong className="text-[#ff5c70]">Closed</strong>
             </p>
           </div>
-          <div className="mt-6 flex items-center gap-3 rounded-lg bg-white/6 p-3">
+          <a
+            href={hospitalPhoneHref}
+            className="mt-6 flex items-center gap-3 rounded-lg bg-white/6 p-3 transition hover:bg-white/10"
+          >
             <Clock3 size={18} className="text-[#4b9fff]" />
             <span className="text-xs">
               Emergency: <strong className="text-white">24/7 Service</strong>
             </span>
-          </div>
+          </a>
         </div>
       </div>
       <div className="border-t border-white/8">
         <div className="mx-auto flex max-w-[1180px] flex-col gap-3 px-5 py-5 text-center text-[10px] sm:flex-row sm:items-center sm:justify-between sm:text-left md:px-8">
           <p>© 2026 Amna Murad Hospital. All Rights Reserved.</p>
           <div className="flex gap-5">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <span>Privacy Policy</span>
+            <span>Terms of Service</span>
           </div>
         </div>
       </div>
@@ -583,7 +636,13 @@ export function HospitalFooter() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: string[] }) {
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
   return (
     <div>
       <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-white">
@@ -591,10 +650,10 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
       </h3>
       <ul className="mt-5 space-y-3 text-xs">
         {links.map((link) => (
-          <li key={link}>
-            <a href="#" className="transition hover:text-white">
-              {link}
-            </a>
+          <li key={link.label}>
+            <Link href={link.href} className="transition hover:text-white">
+              {link.label}
+            </Link>
           </li>
         ))}
       </ul>
