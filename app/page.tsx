@@ -26,8 +26,7 @@ import {
 
 const heroRoom =
   "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=78";
-const executivePortrait =
-  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=74";
+const executivePortrait = "/leader.png";
 
 export default function Home() {
   return (

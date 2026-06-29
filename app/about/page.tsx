@@ -31,12 +31,11 @@ export const metadata = {
 
 const leaders = [
   {
-    name: "Dr. Murad Ali",
+    name: "Dr. Javed Iqbal",
     role: "Chief Executive Officer",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=68",
+    image: "/leader.png",
     description:
-      "Leading the vision for patient-centered medical excellence and strategic growth.",
+      "MBBS (KE), MD (USA) — Dermatologist with 30 years of experience and owner of Amna Murad Hospital.",
   },
   {
     name: "Dr. Amna Murad",

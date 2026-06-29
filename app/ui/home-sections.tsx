@@ -37,6 +37,8 @@ import {
   type Doctor,
 } from "@/data/doctors";
 import {
+  emergencyPhoneDisplay,
+  emergencyPhoneHref,
   hospitalPhoneDisplay,
   hospitalPhoneHref,
   whatsappHref,
@@ -82,11 +84,11 @@ export function HospitalHeader() {
               {hospitalPhoneDisplay}
             </a>
             <a
-              href={hospitalPhoneHref}
+              href={emergencyPhoneHref}
               className="flex items-center gap-1.5 transition hover:text-[#b9dcff]"
             >
               <Ambulance size={12} />
-              Emergency: {hospitalPhoneDisplay}
+              Emergency: {emergencyPhoneDisplay}
             </a>
           </div>
           <div className="hidden items-center gap-4 sm:flex">
@@ -160,7 +162,7 @@ const actions = [
     title: "Emergency 24/7",
     description: "Immediate care available",
     className: "bg-[#eb164e]",
-    href: "tel:+923006409917",
+    href: hospitalPhoneHref,
   },
 ];
 
@@ -307,7 +309,7 @@ export function Departments() {
               <span className="absolute -right-10 -top-12 size-32 rounded-full border border-current opacity-[0.08]" />
               <span className="absolute -bottom-16 left-8 size-28 rounded-full border border-current opacity-[0.06]" />
               <span className={`absolute left-5 top-5 text-[9px] font-extrabold uppercase tracking-[0.18em] ${color}`}>
-                Rank 0{index + 1}
+                0{index + 1}
               </span>
               <div
                 className={`absolute bottom-4 right-5 grid size-14 place-items-center rounded-full border border-white/80 bg-white shadow-sm transition-transform duration-300 group-hover:-translate-y-1 ${color}`}

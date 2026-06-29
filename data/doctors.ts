@@ -13,6 +13,26 @@ export type Doctor = {
 
 export const doctors: Doctor[] = [
   {
+    id: 6,
+    name: "Dr. Javed Iqbal",
+    designation: "Dermatologist | Hospital Owner",
+    degrees: ["MBBS (KE)", "MD (USA)"],
+    department: "Dermatology",
+    experience: "30 years",
+    visitingDays: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ],
+    timings: "5:00 PM - 10:00 PM",
+    expertise: ["Dermatology", "Skin Care", "Hair and Nail Disorders"],
+    biography:
+      "Dr. Javed Iqbal is a dermatologist with 30 years of clinical experience and the owner of Amna Murad Hospital.",
+  },
+  {
     id: 1,
     name: "Dr. Shazal Nazir",
     designation: "Physiotherapist | Chiropractor",
@@ -106,7 +126,7 @@ export const doctors: Doctor[] = [
   {
     id: 5,
     name: "Dr. Aimen Anjum",
-    designation: "Lady Dental Surgeon",
+    designation: "Dental Surgeon",
     degrees: ["BDS"],
     department: "Dental",
     experience: "6 years",
@@ -128,14 +148,36 @@ export const doctors: Doctor[] = [
       "Oral Health Consultation",
     ],
     biography:
-      "Dr. Aimen Anjum is a Lady Dental Surgeon with six years of clinical experience in both public and private healthcare sectors. She previously served as a Dental Surgeon at Children's Hospital Lahore and Allied Hospital Faisalabad. She has extensive experience treating both children and adults and is committed to providing high-quality, patient-centered dental care. Special attention is given to ensuring privacy and comfort for female patients, particularly those observing hijab. She currently runs her own clinical practice, Aimen's Dental Care, at Amna Murad Hospital, Satellite Town, Gujranwala.",
+      "Dr. Aimen Anjum is a Dental Surgeon with six years of clinical experience in both public and private healthcare sectors. She previously served as a Dental Surgeon at Children's Hospital Lahore and Allied Hospital Faisalabad. She has extensive experience treating both children and adults and is committed to providing high-quality, patient-centered dental care. Special attention is given to ensuring privacy and comfort for female patients, particularly those observing hijab. She currently runs her own clinical practice, Aimen's Dental Care, at Amna Murad Hospital, Satellite Town, Gujranwala.",
+  },
+  {
+    id: 7,
+    name: "Dr. Abdul Rahim",
+    designation: "Dental Surgeon",
+    degrees: ["BDS"],
+    department: "Dental",
+    experience: "Not specified",
+    visitingDays: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Saturday",
+      "Sunday",
+    ],
+    timings: "11:00 AM - 4:00 PM, 6:00 PM - 10:00 PM",
+    expertise: ["General Dentistry", "Dental Surgery", "Oral Health"],
+    biography:
+      "Dr. Abdul Rahim is a qualified dental surgeon providing general dentistry, dental surgery, and oral healthcare services.",
   },
 ];
 
 export const doctorPortraits: Record<number, string> = {
-  1: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=520&q=62",
+  1: "/chiro.jpeg",
   2: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=520&q=62",
   3: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=520&q=62",
   4: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=520&q=62",
   5: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=520&q=62",
+  6: "/leader.png",
+  7: "/raheem.jpeg",
 };

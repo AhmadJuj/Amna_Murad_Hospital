@@ -67,6 +67,10 @@ export function DoctorsDirectory({
       return matchesQuery && matchesDepartment && matchesExperience;
     });
 
+    if (sortBy === "recommended") {
+      return filtered;
+    }
+
     return [...filtered].sort((first, second) => {
       if (sortBy === "name") {
         return first.name.localeCompare(second.name);
@@ -77,7 +81,7 @@ export function DoctorsDirectory({
           experienceYears(first.experience)
         );
       }
-      return first.id - second.id;
+      return 0;
     });
   }, [minimumExperience, query, selectedDepartments, sortBy]);
 
@@ -201,7 +205,7 @@ export function DoctorsDirectory({
                   key={doctor.id}
                   className="group overflow-hidden rounded-[16px] transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-[#b7c8dc]"
                 >
-                  <div className="relative h-52 overflow-hidden bg-[#dce8ef]">
+                  <div className="relative h-72 overflow-hidden bg-[#dce8ef] sm:h-80">
                     <Image
                       src={doctorPortraits[doctor.id]}
                       alt={doctor.name}
