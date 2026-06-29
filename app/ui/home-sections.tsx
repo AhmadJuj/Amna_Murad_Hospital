@@ -209,9 +209,9 @@ const departments = [
     title: "Dermatology",
     description:
       "Specialist diagnosis and treatment for skin, hair, nail, and cosmetic concerns.",
-    color: "text-[#8a286f]",
-    bg: "bg-[#f9eaf5]",
-    accent: "bg-[#b2378d]",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
     services: ["Clinical dermatology", "Skin and hair care"],
   },
   {
@@ -220,9 +220,9 @@ const departments = [
     title: "Gynecology",
     description:
       "Compassionate women’s healthcare, pregnancy care, and reproductive medicine.",
-    color: "text-[#b12f62]",
-    bg: "bg-[#fcecf3]",
-    accent: "bg-[#d4477d]",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
     services: ["Women’s health", "Pregnancy and fertility"],
   },
   {
@@ -231,9 +231,9 @@ const departments = [
     title: "Medical Specialist",
     description:
       "Comprehensive assessment and management of adult medical conditions.",
-    color: "text-[#175c87]",
-    bg: "bg-[#e9f4fa]",
-    accent: "bg-[#2479a8]",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
     services: ["Medical consultation", "Chronic disease care"],
   },
   {
@@ -242,9 +242,9 @@ const departments = [
     title: "General Surgery",
     description:
       "Experienced surgical care for general, breast, and emergency conditions.",
-    color: "text-[#875126]",
-    bg: "bg-[#faf1e8]",
-    accent: "bg-[#ae6b32]",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
     services: ["General procedures", "Breast and emergency surgery"],
   },
   {
@@ -253,9 +253,9 @@ const departments = [
     title: "Physiotherapy",
     description:
       "Evidence-based rehabilitation for mobility, pain, and sports-related injuries.",
-    color: "text-[#176c63]",
-    bg: "bg-[#e9f6f3]",
-    accent: "bg-[#238c80]",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
     services: ["Physical rehabilitation", "Pain management"],
   },
   {
@@ -264,9 +264,9 @@ const departments = [
     title: "Chiropractor / Physiotherapist",
     description:
       "Focused treatment for spinal disorders, posture, joints, and musculoskeletal pain.",
-    color: "text-[#314f88]",
-    bg: "bg-[#edf1fa]",
-    accent: "bg-[#4568a6]",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
     services: ["Spinal care", "Orthopedic rehabilitation"],
   },
   {

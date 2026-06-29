@@ -224,7 +224,7 @@ export function ServiceCatalogCard({
         <CardTitle className="mt-4 text-lg">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent className="mt-5 border-t border-[#edf1f5] pt-5">
+      <CardContent className="mt-5 border-t border-[#edf1f5] pb-6 pt-5">
         <p className="text-[9px] font-extrabold uppercase tracking-[0.12em] text-[#8a96a8]">
           Common tests
         </p>
@@ -234,7 +234,7 @@ export function ServiceCatalogCard({
               key={example}
               className="flex items-center gap-2 text-xs font-semibold text-[#526177]"
             >
-              <span className="size-1.5 rounded-full bg-[#0b438c]" />
+              <span className="size-1.5 shrink-0 rounded-full bg-[#0b438c]" />
               {example}
             </li>
           ))}

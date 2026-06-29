@@ -136,7 +136,7 @@ export default function ContactPage() {
               </p>
             </div>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Satellite+Town+Gujranwala"
+              href="https://www.google.com/maps/place/Amna+Murad+Hospital/@32.1685535,74.2000078,17z/data=!3m1!4b1!4m6!3m5!1s0x391f29b84928b69f:0x4730ffceada2420b!8m2!3d32.1685535!4d74.2000078!16s%2Fg%2F11rtl_dgpz"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 text-xs font-extrabold text-[#173f70]"
@@ -147,7 +147,7 @@ export default function ContactPage() {
           <div className="mt-7 overflow-hidden rounded-xl border border-[#cfd9e5] bg-[#dce8ef] shadow-[0_18px_45px_rgba(30,55,85,0.12)]">
             <iframe
               title="Amna Murad Hospital location map"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=74.12%2C32.12%2C74.24%2C32.22&layer=mapnik&marker=32.1676%2C74.1883"
+              src="https://www.google.com/maps?q=32.1685535,74.2000078&z=17&output=embed"
               loading="lazy"
               className="h-[420px] w-full border-0"
             />
