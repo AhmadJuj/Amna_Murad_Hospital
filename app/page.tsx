@@ -13,16 +13,20 @@ import {
   Consultants,
   Departments,
   EmergencyBanner,
+  HomeFaq,
+  homeFaqItems,
   HospitalFooter,
   HospitalHeader,
   NewsAndTestimonials,
   SectionHeading,
 } from "./ui/home-sections";
+import { JsonLd } from "./ui/json-ld";
 import {
   hospitalPhoneDisplay,
   hospitalPhoneHref,
   whatsappHref,
 } from "@/lib/contact";
+import { faqSchema } from "@/lib/structured-data";
 
 const heroRoom =
   "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=78";
@@ -31,6 +35,7 @@ const executivePortrait = "/leader.png";
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-[#0b1730]">
+      <JsonLd data={faqSchema(homeFaqItems)} />
       <HospitalHeader />
 
       <section className="bg-[#f7faff]">
@@ -44,9 +49,10 @@ export default function Home() {
               <span className="block text-[#0c3881]">a Human Touch</span>
             </h1>
             <p className="mt-6 max-w-[560px] text-[15px] leading-7 text-[#66738a]">
-              At Amna Murad Hospital, we combine world-class medical expertise
-              with personalized attention to ensure your journey to recovery is
-              smooth and comfortable.
+              Amna Murad Hospital is a trusted private hospital in Satellite
+              Town, Gujranwala — combining world-class medical expertise, 24/7
+              emergency care, and personalized attention to make your journey
+              to recovery smooth and comfortable.
             </p>
             <div className="mt-8 grid gap-3 min-[420px]:flex min-[420px]:flex-wrap">
               <Link
@@ -68,7 +74,7 @@ export default function Home() {
             <div className="image-frame group relative min-h-[280px] overflow-hidden rounded-[22px] bg-[#dce8ed] shadow-[0_24px_60px_rgba(20,49,77,0.2)] min-[420px]:min-h-[340px] sm:min-h-[455px] sm:rounded-[28px]">
               <Image
                 src={heroRoom}
-                alt="Modern hospital room"
+                alt="Modern private patient room at Amna Murad Hospital Gujranwala"
                 fill
                 priority
                 unoptimized
@@ -98,7 +104,7 @@ export default function Home() {
           <div className="image-frame group relative min-h-[360px] overflow-hidden rounded-2xl bg-[#dbe8f0] shadow-[0_22px_60px_rgba(10,34,61,0.15)] sm:min-h-[500px]">
             <Image
               src={executivePortrait}
-              alt="Senior hospital consultant"
+              alt="Dr. Javed Iqbal, CEO and senior consultant at Amna Murad Hospital Gujranwala"
               fill
               loading="lazy"
               unoptimized
@@ -171,6 +177,7 @@ export default function Home() {
 
       <EmergencyBanner />
       <NewsAndTestimonials />
+      <HomeFaq />
 
       <section className="lazy-section bg-[#f8fafc] px-4 py-12 sm:px-5 sm:py-16 md:px-8">
         <Reveal className="mx-auto grid max-w-[1120px] items-center gap-8 overflow-hidden rounded-[22px] bg-[#0b1730] px-5 py-8 text-white shadow-[0_24px_70px_rgba(8,24,51,0.16)] sm:rounded-[28px] sm:px-7 sm:py-10 md:grid-cols-[1fr_310px] md:px-14 md:py-12">

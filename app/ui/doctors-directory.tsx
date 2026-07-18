@@ -20,12 +20,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { doctorPortraits, doctors } from "@/data/doctors";
+import type { Doctor } from "@/data/doctors";
 import { Reveal } from "./reveal";
-
-const departments = Array.from(
-  new Set(doctors.map((doctor) => doctor.department)),
-);
 
 function experienceYears(value: string) {
   const years = Number.parseInt(value, 10);
@@ -33,17 +29,23 @@ function experienceYears(value: string) {
 }
 
 type DoctorsDirectoryProps = {
+  doctors: Doctor[];
   query: string;
   onQueryChange: (value: string) => void;
 };
 
 export function DoctorsDirectory({
+  doctors,
   query,
   onQueryChange,
 }: DoctorsDirectoryProps) {
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
   const [minimumExperience, setMinimumExperience] = useState("0");
   const [sortBy, setSortBy] = useState("recommended");
+  const departments = useMemo(
+    () => Array.from(new Set(doctors.map((doctor) => doctor.department))),
+    [doctors],
+  );
 
   const visibleDoctors = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -207,8 +209,8 @@ export function DoctorsDirectory({
                 >
                   <div className="relative h-72 overflow-hidden bg-[#dce8ef] sm:h-80">
                     <Image
-                      src={doctorPortraits[doctor.id]}
-                      alt={doctor.name}
+                      src={doctor.image}
+                      alt={`${doctor.name} - ${doctor.designation} at Amna Murad Hospital Gujranwala`}
                       fill
                       unoptimized
                       loading="lazy"
@@ -224,7 +226,7 @@ export function DoctorsDirectory({
                     <CardDescription className="min-h-10 text-xs leading-5 text-[#35618b]">
                       {doctor.designation}
                     </CardDescription>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#8b97a8]">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#8b97a8]">
                       {doctor.degrees.join(" · ")}
                     </p>
                   </CardHeader>
@@ -240,7 +242,7 @@ export function DoctorsDirectory({
                   </CardContent>
                   <CardFooter className="gap-2 pt-5">
                     <Link
-                      href={`/doctors/${doctor.id}`}
+                      href={`/doctors/${doctor.slug}`}
                       className="flex-1 rounded-lg border border-[#cfd9e5] py-2.5 text-center text-[11px] font-extrabold text-[#173f70] transition hover:border-[#173f70] hover:bg-[#f1f6fb]"
                     >
                       View profile

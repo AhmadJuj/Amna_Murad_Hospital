@@ -35,7 +35,7 @@ export function PageHero({
       <div
         className={`relative mx-auto max-w-[1180px] px-5 py-14 md:px-8 md:py-20 ${
           media
-            ? "grid items-center gap-10 lg:grid-cols-[0.98fr_1.02fr]"
+            ? "grid items-start gap-10 lg:grid-cols-[0.98fr_1.02fr]"
             : centered
               ? "text-center"
               : ""
@@ -103,7 +103,7 @@ export function LeadershipCard({
           sizes="(max-width: 768px) 100vw, 33vw"
           className="object-cover object-top"
         />
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#08172e]/80 to-transparent px-5 pb-5 pt-20">
+        <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-[#08172e]/80 to-transparent px-5 pb-5 pt-20">
           <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white">
             {role}
           </p>
@@ -217,7 +217,7 @@ export function ServiceCatalogCard({
           <span className="grid size-11 place-items-center rounded-xl bg-[#eaf3fc] text-[#0d4b88]">
             <Icon size={21} />
           </span>
-          <span className="rounded-full bg-[#f0f4f9] px-3 py-1 text-[9px] font-extrabold uppercase tracking-[0.1em] text-[#53647a]">
+          <span className="rounded-full bg-[#f0f4f9] px-3 py-1 text-[9px] font-extrabold uppercase tracking-widest text-[#53647a]">
             {testCount}
           </span>
         </div>

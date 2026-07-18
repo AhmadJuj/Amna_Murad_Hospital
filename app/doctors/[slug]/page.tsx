@@ -1,6 +1,7 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import {
   ArrowLeft,
   CalendarDays,
@@ -10,25 +11,75 @@ import {
   Stethoscope,
 } from "lucide-react";
 import { HospitalFooter, HospitalHeader } from "@/app/ui/home-sections";
+import { JsonLd } from "@/app/ui/json-ld";
 import { Reveal } from "@/app/ui/reveal";
-import { doctorPortraits, doctors } from "@/data/doctors";
+import { doctorPath } from "@/data/doctors";
+import { getDoctors } from "@/lib/doctors-store";
+import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema, physicianSchema } from "@/lib/structured-data";
 
-export function generateStaticParams() {
-  return doctors.map((doctor) => ({ id: doctor.id.toString() }));
+export const dynamic = "force-dynamic";
+
+function findDoctor(slug: string, doctors: Awaited<ReturnType<typeof getDoctors>>) {
+  return doctors.find((item) => item.slug === slug);
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/doctors/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const doctors = await getDoctors();
+  const doctor = findDoctor(slug, doctors);
+
+  if (!doctor) {
+    return { title: "Doctor Not Found" };
+  }
+
+  const specialty = doctor.department;
+  return buildMetadata({
+    title: `${doctor.name} - ${specialty} in Gujranwala`,
+    absoluteTitle: true,
+    description: `Book an appointment with ${doctor.name}, ${doctor.designation} (${doctor.degrees.join(", ")}) at Amna Murad Hospital Gujranwala. ${doctor.experience} experience. Call 0300-6409917.`,
+    path: doctorPath(doctor),
+    keywords: [
+      `best ${specialty.toLowerCase()} in Gujranwala`,
+      `${specialty.toLowerCase()} near me`,
+      `${doctor.name} Gujranwala`,
+      `book ${specialty.toLowerCase()} appointment online`,
+      ...doctor.expertise.map((item) => item.toLowerCase()),
+    ],
+    ogType: "profile",
+  });
 }
 
 export default async function DoctorProfilePage({
   params,
-}: PageProps<"/doctors/[id]">) {
-  const { id } = await params;
-  const doctor = doctors.find((item) => item.id === Number(id));
+}: PageProps<"/doctors/[slug]">) {
+  const { slug } = await params;
+  const doctors = await getDoctors();
+  const doctor = findDoctor(slug, doctors);
 
   if (!doctor) {
+    // Preserve old numeric URLs (/doctors/3) with a permanent redirect.
+    const legacyDoctor = doctors.find((item) => item.id === Number(slug));
+    if (legacyDoctor) {
+      permanentRedirect(doctorPath(legacyDoctor));
+    }
     notFound();
   }
 
   return (
     <main className="min-h-screen bg-[#f7f9fc] text-[#0b1730]">
+      <JsonLd
+        data={[
+          physicianSchema(doctor, doctor.slug),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Doctors", path: "/doctors" },
+            { name: doctor.name, path: doctorPath(doctor) },
+          ]),
+        ]}
+      />
       <HospitalHeader />
       <section className="mx-auto max-w-[1080px] px-5 py-10 md:px-8 md:py-16">
         <Link
@@ -40,8 +91,8 @@ export default async function DoctorProfilePage({
         <Reveal className="mt-7 grid overflow-hidden rounded-2xl border border-[#dce5ef] bg-white shadow-[0_16px_45px_rgba(30,55,85,0.08)] lg:grid-cols-[340px_1fr]">
           <div className="relative min-h-[420px] bg-[#dce8ef]">
             <Image
-              src={doctorPortraits[doctor.id]}
-              alt={doctor.name}
+              src={doctor.image}
+              alt={`${doctor.name}, ${doctor.designation} at Amna Murad Hospital Gujranwala`}
               fill
               unoptimized
               priority
@@ -57,7 +108,7 @@ export default async function DoctorProfilePage({
               {doctor.name}
             </h1>
             <p className="mt-2 text-sm font-semibold text-[#31618e]">
-              {doctor.designation}
+              {doctor.designation} in Gujranwala
             </p>
             <div className="mt-7 grid gap-3 sm:grid-cols-3">
               <Detail icon={GraduationCap} value={doctor.degrees.join(", ")} />
@@ -65,7 +116,9 @@ export default async function DoctorProfilePage({
               <Detail icon={Clock3} value={doctor.timings} />
             </div>
             <div className="mt-8 border-t border-[#edf1f5] pt-7">
-              <h2 className="font-extrabold text-[#1c2a40]">About</h2>
+              <h2 className="font-extrabold text-[#1c2a40]">
+                About {doctor.name}
+              </h2>
               <p className="mt-3 text-sm leading-7 text-[#6d798c]">
                 {doctor.biography}
               </p>

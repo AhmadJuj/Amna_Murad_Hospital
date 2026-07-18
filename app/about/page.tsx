@@ -21,13 +21,25 @@ import {
   PageHero,
   StatCard,
 } from "@/app/ui/page-components";
+import { JsonLd } from "@/app/ui/json-ld";
 import { Reveal } from "@/app/ui/reveal";
+import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
-export const metadata = {
-  title: "About Us | Amna Murad Hospital",
+export const metadata = buildMetadata({
+  title: "About Amna Murad Hospital | Best Hospital in Gujranwala",
+  absoluteTitle: true,
   description:
-    "Learn about Amna Murad Hospital's commitment to ethical, advanced, and patient-centered healthcare.",
-};
+    "Amna Murad Hospital is a trusted private hospital in Satellite Town, Gujranwala led by Dr. Javed Iqbal (MBBS, MD). 24/7 emergency, expert consultants & labs.",
+  path: "/about",
+  keywords: [
+    "about Amna Murad Hospital",
+    "trusted hospital Gujranwala",
+    "hospital Satellite Town Gujranwala",
+    "hospital facilities Gujranwala",
+    "qualified doctors Gujranwala",
+  ],
+});
 
 const leaders = [
   {
@@ -88,6 +100,12 @@ const facilityImages = [
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white text-[#0b1730]">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About Us", path: "/about" },
+        ])}
+      />
       <HospitalHeader />
 
       <PageHero
@@ -100,9 +118,9 @@ export default function AboutPage() {
         }
         description="Since our inception, Amna Murad Hospital has been at the forefront of medical excellence in Gujranwala. We combine state-of-the-art technology with compassionate clinical care to provide a healing environment that prioritizes patient well-being above all."
         media={
-          <div className="relative min-h-[360px] overflow-hidden rounded-2xl border border-[#d7e0ea] bg-[#dce8ef] shadow-[0_24px_55px_rgba(21,48,79,0.16)] sm:min-h-[470px]">
+          <div className="relative min-h-[560px] overflow-hidden rounded-2xl border border-[#d7e0ea] bg-[#dce8ef] shadow-[0_24px_55px_rgba(21,48,79,0.16)] sm:min-h-[760px] lg:min-h-[880px]">
             <Image
-              src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=72"
+              src="/hospitalExt.png"
               alt="Amna Murad Hospital building"
               fill
               unoptimized
@@ -117,6 +135,28 @@ export default function AboutPage() {
           <StatCard value="25+" label="Specialized Departments" />
           <StatCard value="150+" label="Expert Physicians" />
           <StatCard value="24/7" label="Emergency Support" />
+        </div>
+        <div className="mt-6 max-w-[560px] rounded-2xl bg-[#062a61] p-6 text-white shadow-[0_18px_45px_rgba(6,42,97,0.18)]">
+          <h2 className="text-lg font-extrabold">
+            Complete Care in Gujranwala
+          </h2>
+          <p className="mt-3 text-sm leading-6 text-white/75">
+            From emergency support and specialist consultations to laboratory,
+            diagnostic, surgical, and rehabilitation services, our hospital is
+            designed to keep essential care close to your family.
+          </p>
+          <div className="mt-5 grid gap-3 text-xs font-semibold text-white/85 sm:grid-cols-2">
+            {[
+              "24/7 emergency response",
+              "Experienced consultants",
+              "Modern diagnostics",
+              "Patient-centered care",
+            ].map((item) => (
+              <span key={item} className="rounded-lg bg-white/10 px-3 py-2">
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
       </PageHero>
 

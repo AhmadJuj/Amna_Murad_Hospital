@@ -14,17 +14,36 @@ import {
   FormField,
   PageHero,
 } from "@/app/ui/page-components";
+import { JsonLd } from "@/app/ui/json-ld";
 import { Reveal } from "@/app/ui/reveal";
+import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
-export const metadata = {
-  title: "Contact Us | Amna Murad Hospital",
+export const metadata = buildMetadata({
+  title: "Contact Amna Murad Hospital Gujranwala | Book Appointment",
+  absoluteTitle: true,
   description:
-    "Contact Amna Murad Hospital in Gujranwala for appointments, directions, and emergency support.",
-};
+    "Contact Amna Murad Hospital, 3-D Satellite Town, Dastgir Road, Gujranwala. Call 0300-6409917 for appointments or 055-3734141 for 24/7 emergency support.",
+  path: "/contact",
+  keywords: [
+    "Amna Murad Hospital contact number",
+    "Amna Murad Hospital address",
+    "book doctor appointment Gujranwala",
+    "hospital phone number Gujranwala",
+    "emergency hospital contact Gujranwala",
+    "hospital directions Satellite Town Gujranwala",
+  ],
+});
 
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#f7f8ff] text-[#0b1730]">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact Us", path: "/contact" },
+        ])}
+      />
       <HospitalHeader />
 
       <PageHero

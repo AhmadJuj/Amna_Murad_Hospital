@@ -11,8 +11,11 @@ import {
 import {
   Activity,
   Ambulance,
+  Apple,
   ArrowUpRight,
+  Baby,
   Bone,
+  Brain,
   CalendarDays,
   Check,
   ChevronLeft,
@@ -237,6 +240,39 @@ const departments = [
     services: ["Medical consultation", "Chronic disease care"],
   },
   {
+    slug: "clinical-psychologist",
+    icon: Brain,
+    title: "Clinical Psychologist",
+    description:
+      "Confidential mental health assessment, counseling, and therapy support.",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
+    services: ["Psychological assessment", "Counseling and therapy"],
+  },
+  {
+    slug: "pediatrician",
+    icon: Baby,
+    title: "Pediatrician",
+    description:
+      "Child health consultations, growth monitoring, and preventive pediatric care.",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
+    services: ["Child specialist care", "Vaccination guidance"],
+  },
+  {
+    slug: "neuro-physician",
+    icon: Brain,
+    title: "Neuro Physician",
+    description:
+      "Specialist consultation for headaches, seizures, stroke symptoms, and nerve disorders.",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
+    services: ["Neurology consultation", "Nerve and brain disorders"],
+  },
+  {
     slug: "general-surgery",
     icon: Scissors,
     title: "General Surgery",
@@ -257,6 +293,17 @@ const departments = [
     bg: "bg-[#e9f2fb]",
     accent: "bg-[#0b4b8a]",
     services: ["Physical rehabilitation", "Pain management"],
+  },
+  {
+    slug: "nutritionist-dietitian",
+    icon: Apple,
+    title: "Nutritionist/Dietitian",
+    description:
+      "Evidence-based diet plans for children, weight management, pregnancy, and chronic conditions.",
+    color: "text-[#0b4b8a]",
+    bg: "bg-[#e9f2fb]",
+    accent: "bg-[#0b4b8a]",
+    services: ["Therapeutic diets", "Maternal and child nutrition"],
   },
   {
     slug: "chiropractor-physiotherapist",
@@ -388,12 +435,12 @@ export function Consultants() {
           <Reveal key={doctor.name} delay={index * 120}>
             <article className="group text-center">
               <Link
-                href={`/doctors/${doctor.id}`}
+                href={`/doctors/${doctor.slug}`}
                 className="image-frame relative mx-auto block aspect-[1.05] w-full max-w-[290px] overflow-hidden rounded-xl bg-[#0d263c] shadow-[0_18px_40px_rgba(19,44,68,0.13)]"
               >
                 <Image
                   src={doctorPortraits[doctor.id]}
-                  alt={doctor.name}
+                  alt={`${doctor.name} - ${doctor.designation} at Amna Murad Hospital Gujranwala`}
                   fill
                   loading="lazy"
                   unoptimized
@@ -402,7 +449,7 @@ export function Consultants() {
                 />
               </Link>
               <Link
-                href={`/doctors/${doctor.id}`}
+                href={`/doctors/${doctor.slug}`}
                 className="mt-5 block text-[15px] font-extrabold text-[#182139] transition hover:text-[#0b438c]"
               >
                 {doctor.name}
@@ -420,7 +467,7 @@ export function Consultants() {
               </div>
               <div className="mx-auto mt-4 grid w-full max-w-[320px] grid-cols-2 gap-2">
                 <Link
-                  href={`/doctors/${doctor.id}`}
+                  href={`/doctors/${doctor.slug}`}
                   className="inline-flex items-center justify-center rounded border border-[#dfe5ed] py-2.5 text-[10px] font-bold text-[#183a65] transition hover:border-[#0b3977]"
                 >
                   View Profile
@@ -441,7 +488,7 @@ export function Consultants() {
       <div className="mt-10 text-center">
         <Link
           href="/doctors"
-          className="inline-flex items-center gap-2 rounded-md border border-[#cbd9e8] px-5 py-3 text-xs font-extrabold uppercase tracking-[0.1em] text-[#173e70] transition hover:border-[#173e70] hover:bg-[#173e70] hover:text-white"
+          className="inline-flex items-center gap-2 rounded-md border border-[#cbd9e8] px-5 py-3 text-xs font-extrabold uppercase tracking-widest text-[#173e70] transition hover:border-[#173e70] hover:bg-[#173e70] hover:text-white"
         >
           View all doctors <ArrowUpRight size={15} />
         </Link>
@@ -462,7 +509,7 @@ export function EmergencyBanner() {
         sizes="100vw"
         className="object-cover object-center opacity-30"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#364458]/85 via-[#284158]/80 to-[#0a334c]/80" />
+      <div className="absolute inset-0 bg-linear-to-r from-[#364458]/85 via-[#284158]/80 to-[#0a334c]/80" />
       <div className="relative mx-auto flex min-h-[380px] max-w-[1180px] items-center px-4 py-12 sm:min-h-[420px] sm:px-5 sm:py-14 md:px-8">
         <Reveal direction="left" className="max-w-[540px] rounded-2xl border border-white/16 bg-[#17415a]/80 p-6 text-white shadow-2xl backdrop-blur-sm sm:p-8">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9ccce7]">
@@ -586,6 +633,75 @@ export function NewsAndTestimonials() {
   );
 }
 
+export const homeFaqItems = [
+  {
+    question: "Where is Amna Murad Hospital located?",
+    answer:
+      "Amna Murad Hospital is located at 3-D Satellite Town, Dastgir Road, Gujranwala, Pakistan — a few minutes from central Gujranwala with easy access from GT Road.",
+  },
+  {
+    question: "Is Amna Murad Hospital open 24 hours?",
+    answer:
+      "Yes. Our emergency department is open 24 hours a day, 7 days a week. OPD clinics and the diagnostic laboratory operate from 8:00 AM to 10:00 PM daily.",
+  },
+  {
+    question: "How can I book a doctor appointment at Amna Murad Hospital?",
+    answer:
+      "You can book an appointment online via WhatsApp, call 0300-6409917, or visit the hospital reception. Online booking is free and confirmed within minutes.",
+  },
+  {
+    question: "Which specialist doctors are available at Amna Murad Hospital?",
+    answer:
+      "Our consultants include a gynecologist and infertility specialist, dermatologist, general and breast surgeon, dental surgeons, physiotherapists, and a chiropractor — all with verified qualifications such as MBBS, FCPS, BDS, and DPT.",
+  },
+  {
+    question: "Does Amna Murad Hospital have a laboratory and diagnostic services?",
+    answer:
+      "Yes. We offer 65+ laboratory tests and diagnostic reports including complete blood count, liver and kidney function tests, HbA1c, ultrasound, digital X-ray, and ECG, with 24/7 emergency lab support.",
+  },
+  {
+    question: "What are the emergency contact numbers for Amna Murad Hospital?",
+    answer:
+      "For emergencies call 055-3734141 or 0300-6409917. Our rapid response team provides immediate critical care around the clock in Gujranwala.",
+  },
+];
+
+export function HomeFaq() {
+  return (
+    <section
+      id="faq"
+      className="lazy-section scroll-mt-28 bg-white py-14 sm:py-20"
+    >
+      <Reveal className="mx-auto max-w-[880px] px-5 md:px-8">
+        <SectionHeading
+          centered
+          eyebrow="Patient questions"
+          title="Frequently Asked Questions"
+          description="Quick answers about visiting Amna Murad Hospital in Gujranwala."
+        />
+        <div className="mt-10 space-y-4">
+          {homeFaqItems.map((item) => (
+            <details
+              key={item.question}
+              className="group rounded-xl border border-[#e2e8f1] bg-[#fbfcfe] px-5 py-4 open:bg-white open:shadow-[0_10px_30px_rgba(31,54,81,0.07)]"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-extrabold text-[#16233c]">
+                <h3 className="text-sm font-extrabold">{item.question}</h3>
+                <span className="grid size-7 shrink-0 place-items-center rounded-full border border-[#d7e0ec] text-[#174f88] transition group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-3 text-sm leading-6 text-[#66738a]">
+                {item.answer}
+              </p>
+            </details>
+          ))}
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
 export function HospitalFooter() {
   return (
     <footer id="contact" className="bg-[#09152d] text-[#aebbd0]">
@@ -633,8 +749,18 @@ export function HospitalFooter() {
               label: "Medical Specialist",
               href: "/departments#medical-specialist",
             },
+            {
+              label: "Clinical Psychologist",
+              href: "/departments#clinical-psychologist",
+            },
+            { label: "Pediatrician", href: "/departments#pediatrician" },
+            { label: "Neuro Physician", href: "/departments#neuro-physician" },
             { label: "General Surgery", href: "/departments#general-surgery" },
             { label: "Physiotherapy", href: "/departments#physiotherapy" },
+            {
+              label: "Nutritionist/Dietitian",
+              href: "/departments#nutritionist-dietitian",
+            },
             {
               label: "Chiropractor / Physiotherapist",
               href: "/departments#chiropractor-physiotherapist",
@@ -658,16 +784,16 @@ export function HospitalFooter() {
           </h3>
           <div className="mt-5 space-y-3 text-xs">
             <p className="flex justify-between gap-4">
-              <span>Mon - Fri</span>
-              <strong className="text-white">7:00 AM - 8:00 PM</strong>
+              <span>Hospital</span>
+              <strong className="text-white">Open 24/7</strong>
             </p>
             <p className="flex justify-between gap-4">
-              <span>Saturday</span>
-              <strong className="text-white">9:00 AM - 6:00 PM</strong>
+              <span>Emergency</span>
+              <strong className="text-white">24/7 Service</strong>
             </p>
             <p className="flex justify-between gap-4">
-              <span>Sunday</span>
-              <strong className="text-[#ff5c70]">Closed</strong>
+              <span>OPD & Labs</span>
+              <strong className="text-white">24/7 Service</strong>
             </p>
           </div>
           <a

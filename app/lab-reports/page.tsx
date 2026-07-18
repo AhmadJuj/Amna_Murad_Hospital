@@ -9,17 +9,34 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { InnerPage } from "@/app/ui/inner-page";
+import { JsonLd } from "@/app/ui/json-ld";
 import {
   ServiceCatalogCard,
   StatCard,
 } from "@/app/ui/page-components";
 import { Reveal } from "@/app/ui/reveal";
+import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
-export const metadata = {
-  title: "Diagnostic Reports | Amna Murad Hospital",
+export const metadata = buildMetadata({
+  title: "Lab Tests & Diagnostics in Gujranwala | Amna Murad Hospital",
+  absoluteTitle: true,
   description:
-    "Explore laboratory and diagnostic report types available at Amna Murad Hospital.",
-};
+    "65+ lab tests & diagnostics at Amna Murad Hospital Gujranwala: blood tests, ultrasound, digital X-ray, ECG, HbA1c & hormone profiles. 24/7 emergency lab.",
+  path: "/lab-reports",
+  keywords: [
+    "laboratory tests Gujranwala",
+    "blood test near me",
+    "ultrasound in Gujranwala",
+    "X-ray in Gujranwala",
+    "ECG test Gujranwala",
+    "diagnostic center Gujranwala",
+    "HbA1c test Gujranwala",
+    "thyroid test Gujranwala",
+    "medical lab near me",
+    "24 hour laboratory Gujranwala",
+  ],
+});
 
 const reportCategories = [
   {
@@ -95,6 +112,12 @@ export default function LabReportsPage() {
       title="Laboratory & Diagnostic Reports"
       description="Explore the different categories of tests and diagnostic reports available at Amna Murad Hospital. Availability may vary by consultant request and clinical need."
     >
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Lab Reports & Diagnostics", path: "/lab-reports" },
+        ])}
+      />
       <section className="mx-auto max-w-[1180px] px-5 py-14 md:px-8 md:py-20">
         <Reveal className="grid gap-3 sm:grid-cols-3">
           <StatCard value="8" label="Diagnostic Categories" />

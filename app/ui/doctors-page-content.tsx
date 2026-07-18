@@ -2,9 +2,10 @@
 
 import { Search } from "lucide-react";
 import { useState } from "react";
+import type { Doctor } from "@/data/doctors";
 import { DoctorsDirectory } from "./doctors-directory";
 
-export function DoctorsPageContent() {
+export function DoctorsPageContent({ doctors }: { doctors: Doctor[] }) {
   const [query, setQuery] = useState("");
 
   return (
@@ -15,11 +16,13 @@ export function DoctorsPageContent() {
             Trusted medical experts
           </p>
           <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.035em] text-[#12203a] sm:text-4xl">
-            Find Your Specialist
+            Find the Best Doctors in Gujranwala
           </h1>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#768196]">
-            Connect with our world-class medical professionals committed to
-            caring for your health.
+            Book appointments with qualified specialists at Amna Murad Hospital
+            — gynecologist, dermatologist, pediatrician, neuro physician,
+            clinical dietitian, dental surgeon, physiotherapist, and general
+            surgeon, all in one place.
           </p>
           <label className="mx-auto mt-7 flex max-w-[660px] items-center rounded-xl border border-[#d9e2ed] bg-white p-1.5 shadow-[0_10px_30px_rgba(27,58,91,0.08)] focus-within:border-[#0b438c]">
             <Search size={18} className="ml-3 shrink-0 text-[#8290a4]" />
@@ -40,7 +43,11 @@ export function DoctorsPageContent() {
         </div>
       </section>
       <div id="directory">
-        <DoctorsDirectory query={query} onQueryChange={setQuery} />
+        <DoctorsDirectory
+          doctors={doctors}
+          query={query}
+          onQueryChange={setQuery}
+        />
       </div>
     </>
   );
