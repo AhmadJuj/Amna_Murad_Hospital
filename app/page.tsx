@@ -26,13 +26,18 @@ import {
   hospitalPhoneHref,
   whatsappHref,
 } from "@/lib/contact";
+import { getDoctors } from "@/lib/doctors-store";
 import { faqSchema } from "@/lib/structured-data";
 
 const heroRoom =
   "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=78";
 const executivePortrait = "/leader.png";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const doctors = await getDoctors();
+
   return (
     <main className="min-h-screen bg-white text-[#0b1730]">
       <JsonLd data={faqSchema(homeFaqItems)} />
@@ -171,7 +176,7 @@ export default function Home() {
             title="Expert Consultants"
             description="Meet our team of nationally recognized medical professionals committed to your health."
           />
-          <Consultants />
+          <Consultants doctors={doctors} />
         </Reveal>
       </section>
 

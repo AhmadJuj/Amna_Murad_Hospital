@@ -34,11 +34,7 @@ import {
 import { MobileNav } from "./mobile-nav";
 import { DesktopNav } from "./desktop-nav";
 import { Reveal } from "./reveal";
-import {
-  doctorPortraits,
-  doctors as doctorDirectory,
-  type Doctor,
-} from "@/data/doctors";
+import { type Doctor } from "@/data/doctors";
 import {
   emergencyPhoneDisplay,
   emergencyPhoneHref,
@@ -405,8 +401,6 @@ export function Departments() {
   );
 }
 
-const featuredDoctors = doctorDirectory.slice(0, 3);
-
 function formatVisitingDays(doctor: Doctor) {
   const firstDay = doctor.visitingDays.at(0);
   const lastDay = doctor.visitingDays.at(-1);
@@ -427,7 +421,9 @@ function doctorAppointmentLink(doctor: Doctor) {
   return whatsappHref(message);
 }
 
-export function Consultants() {
+export function Consultants({ doctors }: { doctors: Doctor[] }) {
+  const featuredDoctors = doctors.slice(0, 3);
+
   return (
     <>
       <div className="mt-12 grid gap-8 md:grid-cols-3">
@@ -439,7 +435,7 @@ export function Consultants() {
                 className="image-frame relative mx-auto block aspect-[1.05] w-full max-w-[290px] overflow-hidden rounded-xl bg-[#0d263c] shadow-[0_18px_40px_rgba(19,44,68,0.13)]"
               >
                 <Image
-                  src={doctorPortraits[doctor.id]}
+                  src={doctor.image}
                   alt={`${doctor.name} - ${doctor.designation} at Amna Murad Hospital Gujranwala`}
                   fill
                   loading="lazy"

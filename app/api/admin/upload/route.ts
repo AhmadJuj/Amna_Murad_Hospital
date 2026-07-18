@@ -1,19 +1,6 @@
-import { writeFile } from "fs/promises";
-import path from "path";
 import { NextResponse } from "next/server";
 import { isAdminSessionValid } from "@/lib/admin-auth";
-import {
-  doctorImagesDirectory,
-  ensureDoctorImagesDirectory,
-  slugify,
-} from "@/lib/doctors-store";
-
-const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
-const extensionByType: Record<string, string> = {
-  "image/jpeg": "jpg",
-  "image/png": "png",
-  "image/webp": "webp",
-};
+import { uploadDoctorImage } from "@/lib/doctors-store";
 
 export async function POST(request: Request) {
   if (!(await isAdminSessionValid())) {
@@ -24,25 +11,22 @@ export async function POST(request: Request) {
   const file = formData.get("image");
 
   if (!(file instanceof File)) {
-    return NextResponse.json({ message: "Image file is required." }, { status: 400 });
-  }
-
-  if (!allowedTypes.has(file.type)) {
     return NextResponse.json(
-      { message: "Only JPG, PNG, and WEBP images are allowed." },
+      { message: "Image file is required." },
       { status: 400 },
     );
   }
 
-  await ensureDoctorImagesDirectory();
-
-  const safeBaseName = slugify(file.name.replace(/\.[^.]+$/, "")) || "doctor";
-  const extension = extensionByType[file.type];
-  const fileName = `${Date.now()}-${safeBaseName}.${extension}`;
-  const filePath = path.join(doctorImagesDirectory, fileName);
-  const buffer = Buffer.from(await file.arrayBuffer());
-
-  await writeFile(filePath, buffer);
-
-  return NextResponse.json({ url: `/doctor-images/${fileName}` });
+  try {
+    const url = await uploadDoctorImage(file);
+    return NextResponse.json({ url });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message:
+          error instanceof Error ? error.message : "Image upload failed.",
+      },
+      { status: 400 },
+    );
+  }
 }

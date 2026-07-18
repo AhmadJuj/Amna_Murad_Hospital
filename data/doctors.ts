@@ -1,5 +1,3 @@
-import doctorRecords from "./doctors.json";
-
 export type Doctor = {
   id: number;
   /** SEO-friendly URL segment, e.g. "dr-javed-iqbal-dermatologist". */
@@ -16,12 +14,6 @@ export type Doctor = {
   image: string;
 };
 
-export const doctors = doctorRecords as Doctor[];
-
 export function doctorPath(doctor: Doctor) {
   return `/doctors/${doctor.slug}`;
 }
-
-export const doctorPortraits: Record<number, string> = Object.fromEntries(
-  doctors.map((doctor) => [doctor.id, doctor.image]),
-);
