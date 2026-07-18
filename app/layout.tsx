@@ -72,6 +72,11 @@ export const metadata: Metadata = {
       "Leading private hospital in Gujranwala with 24/7 emergency care, specialist doctors, and diagnostic services.",
     images: ["/logo.jpeg"],
   },
+  icons: {
+    icon: [{ url: "/logo.jpeg", type: "image/jpeg" }],
+    shortcut: "/logo.jpeg",
+    apple: [{ url: "/logo.jpeg", type: "image/jpeg" }],
+  },
 };
 
 export const viewport: Viewport = {
