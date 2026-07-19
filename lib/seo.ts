@@ -2,10 +2,26 @@ import type { Metadata } from "next";
 
 /**
  * Central SEO configuration for Amna Murad Hospital.
- * Update NEXT_PUBLIC_SITE_URL in production if the domain differs.
+ * Set NEXT_PUBLIC_SITE_URL in production (custom domain or Vercel URL)
+ * so Open Graph / WhatsApp previews resolve the hospital logo correctly.
  */
-export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.amnamuradhospital.com";
+function resolveSiteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.replace(/\/$/, "")}`;
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
+  }
+
+  return "https://www.amnamuradhospital.com";
+}
+
+export const siteUrl = resolveSiteUrl();
 
 export const siteName = "Amna Murad Hospital";
 export const siteShortName = "AMH Gujranwala";
@@ -31,21 +47,34 @@ export const googleMapsUrl =
 
 /** Site-wide keywords targeting high-intent hospital searches in Pakistan. */
 export const coreKeywords = [
+  "hospital Gujranwala",
+  "hospitals in Gujranwala",
   "best hospital in Gujranwala",
+  "best hospitals Gujranwala",
+  "private hospital Gujranwala",
   "private hospital in Gujranwala",
+  "top hospital in Gujranwala",
+  "Gujranwala hospital",
+  "hospital near me Gujranwala",
   "hospital near me",
   "best private hospital in Pakistan",
   "24 hour hospital Gujranwala",
+  "24/7 hospital Gujranwala",
   "emergency hospital Gujranwala",
+  "emergency hospital near me Gujranwala",
   "hospital in Satellite Town Gujranwala",
+  "Satellite Town hospital Gujranwala",
+  "Dastgir Road hospital Gujranwala",
   "book doctor appointment online Gujranwala",
+  "doctor appointment Gujranwala",
   "Amna Murad Hospital",
+  "Amna Murad Hospital Gujranwala",
 ];
 
 const defaultOgImage = {
   url: "/logo.jpeg",
-  width: 512,
-  height: 512,
+  width: 1200,
+  height: 630,
   alt: "Amna Murad Hospital Gujranwala logo",
 };
 

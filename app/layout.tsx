@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Amna Murad Hospital Gujranwala | 24/7 Private Hospital",
+    default: "Best Hospital in Gujranwala | Amna Murad Hospital",
     template: `%s | ${siteName}`,
   },
   description:
-    "Amna Murad Hospital is a leading private hospital in Satellite Town, Gujranwala with 24/7 emergency care, specialist doctors, lab tests, ultrasound & X-ray.",
+    "Amna Murad Hospital is a trusted private hospital in Gujranwala with 24/7 emergency care, specialist doctors, lab tests, ultrasound & X-ray in Satellite Town.",
   keywords: coreKeywords,
   applicationName: siteName,
   category: "Healthcare",
@@ -53,29 +53,34 @@ export const metadata: Metadata = {
     locale: "en_PK",
     url: "/",
     siteName,
-    title: "Amna Murad Hospital Gujranwala | 24/7 Private Hospital",
+    title: "Best Hospital in Gujranwala | Amna Murad Hospital",
     description:
-      "Leading private hospital in Satellite Town, Gujranwala. 24/7 emergency, specialist consultations, diagnostics, and online appointment booking.",
+      "Private hospital in Gujranwala — 24/7 emergency, specialist doctors, diagnostics, and online appointment booking in Satellite Town.",
     images: [
       {
         url: "/logo.jpeg",
-        width: 512,
-        height: 512,
-        alt: "Amna Murad Hospital Gujranwala logo",
+        width: 1200,
+        height: 630,
+        alt: "Amna Murad Hospital Gujranwala",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amna Murad Hospital Gujranwala | 24/7 Private Hospital",
+    title: "Best Hospital in Gujranwala | Amna Murad Hospital",
     description:
-      "Leading private hospital in Gujranwala with 24/7 emergency care, specialist doctors, and diagnostic services.",
+      "Trusted private hospital in Gujranwala with 24/7 emergency care, specialists, and diagnostic services.",
     images: ["/logo.jpeg"],
   },
   icons: {
-    icon: [{ url: "/logo.jpeg", type: "image/jpeg" }],
-    shortcut: "/logo.jpeg",
-    apple: [{ url: "/logo.jpeg", type: "image/jpeg" }],
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
   },
 };
 

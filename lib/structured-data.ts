@@ -25,7 +25,7 @@ export function hospitalSchema() {
     name: siteName,
     alternateName: "AMH Gujranwala",
     description:
-      "Amna Murad Hospital is a private hospital in Satellite Town, Gujranwala, Pakistan offering 24/7 emergency care, specialist consultations, gynecology, dermatology, general surgery, dental care, physiotherapy, and a full diagnostic laboratory.",
+      "Amna Murad Hospital is among the trusted private hospitals in Gujranwala, Pakistan — located in Satellite Town with 24/7 emergency care, specialist consultations, gynecology, dermatology, general surgery, dental care, physiotherapy, and a full diagnostic laboratory.",
     url: siteUrl,
     logo: `${siteUrl}/logo.jpeg`,
     image: `${siteUrl}/logo.jpeg`,
